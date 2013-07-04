@@ -30,7 +30,13 @@ noremap <unique> <script> <Plug>CppPut :call <SID>Put()<CR>
 if !hasmapto('<Plug>CppHeader')
 	map <unique> <Leader>h <Plug>CppHeader
 endif
-noremap <unique> <script> <Plug>CppHeader :call <SID>Header()<CR>
+noremap <unique> <script> <Plug>CppHeader :call <SID>Header()<CR><CR>
+
+" if !hasmapto('<Plug>CppComment')
+"	vmap <unique> cc <Plug>CppComment
+" endif
+vnoremap <unique> cc <Esc>:'<,'>s/^/\/\/ /g <CR>
+vnoremap <unique> uc <Esc>:'<,'>s/\/\/ //g <CR>
 " alternatively, use
 " if !hasmapto( '<Plug>TestAdd' )
 " 	map <unique> <Leader>a <Plug>TestAdd
@@ -42,9 +48,12 @@ function s:Put()
 endfunction
 
 function s:Header()
+	let classname = input( "Enter class name: " )
 	let templateName = g:cppTemplateDir . s:newHeader
-	echo templateName
-	exe '0read ' . expand( fnameescape( templateName ) )
+	" echo templateName
+	exe "0read " . expand( fnameescape( templateName ) )
+	exe "%s/CLASS/" . toupper( classname ) . "/g"
+	exe "%s/Class/" . classname . "/g"
 endfunction
 
 " return settings to original state
