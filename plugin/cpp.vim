@@ -12,6 +12,10 @@ if !exists( "g:cppTemplateDir" )
 	let g:cppTemplateDir = "~/.vim/cpp/templates/"
 endif
 
+let s:cppClassesDir = "classes/"
+let s:cppLoopsDir = "loops/"
+let s:cppConditionalsDir = "conditionals/"
+
 let s:newHeader = "new-header.txt"
 
 let g:loadedCpp = 1
@@ -49,7 +53,7 @@ endfunction
 
 function s:Header()
 	let classname = input( "Enter class name: " )
-	let templateName = g:cppTemplateDir . s:newHeader
+	let templateName = g:cppTemplateDir .s:cppClassesDir . s:newHeader
 	" echo templateName
 	exe "0read " . expand( fnameescape( templateName ) )
 	exe "%s/CLASS/" . toupper( classname ) . "/g"
