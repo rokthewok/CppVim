@@ -12,10 +12,10 @@ To install, copy the plugin directory to your .vim/ folder, and the base directo
 
 __in normal mode__
 
-\ch - insert a class header
-\cb - insert a class body
++ \ch - insert a class header
++ \cb - insert a class body
 
 __in visual mode__
 
-cc - comment line/block of text
-uc - uncomment line/block of commented text
++ cc - comment line/block of text
++ uc - uncomment line/block of commented text
