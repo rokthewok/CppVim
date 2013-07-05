@@ -1,13 +1,13 @@
-#ifndef CLASS_H
-#define CLASS_H
+#ifndef |CLASS|_H
+#define |CLASS|_H
 
-class Class {
+class |Class| {
 public:
-	Class();
-	// Class( const Class & other );
-	~Class();
+	|Class|();
+	// |Class|( const |Class| & other );
+	~|Class|();
 private:
 
 };
 
-#endif // CLASS_H
+#endif // |CLASS|_H
