@@ -33,6 +33,7 @@ let s:cppConditionalsDir = "conditionals/"
 let s:newHeader = "new-header.txt"
 let s:newClassBody = "new-class.txt"
 let s:forLoop = "for-loop.txt"
+let s:whileLoop = "while-loop.txt"
 
 let g:loadedCpp = 1
 " save user settings to a temporary location until the script is through
@@ -79,6 +80,12 @@ if !hasmapto( '<Plug>CppFor' )
 endif
 noremap <unique> <script> <Plug>CppFor :call <SID>CompleteFor()<CR>
 
+" Insert for loop
+if !hasmapto( '<Plug>CppWhile' )
+    map <unique> <Leader>wh <Plug>CppWhile
+endif
+noremap <unique> <script> <Plug>CppWhile :call <SID>CompleteWhile()<CR>
+
 " ====== VISUAL MODE commands ====== "
 " comment block of text
 vnoremap <unique> cc <Esc>:'<,'>s/^/\/\/ /g <CR>
@@ -112,20 +119,40 @@ function s:CompleteFor()
         while c != "\<Tab>" && c != "\<Esc>"
             exe "normal! a" . c
             :redraw!
+            " backspace doesn't like being read as a char, so we need its
+            " numeric value
             let nc = getchar()
             if nc is# "\<BS>"
-                echo "Yay!"
                 exe "normal! a\<BS>"
             endif
             let c = nr2char( nc )
-            " TODO FIX ME TO USE BACKSPACE!!!
-            " exe "normal! a\<BS>"
         endwhile
 
         if c ==  "\<Esc>"
             break
         endif
     endfor
+    exe "normal! \<Esc>jI\<Tab>"
+endfunction
+
+function s:CompleteWhile()
+    let templateName = g:cppTemplateDir .s:cppLoopsDir . s:whileLoop
+    exe line( "." )-1 . "read " . expand( fnameescape( templateName ) )
+    :redraw!
+        exe "normal! /<--->/b\<CR>5s"
+        :redraw!
+        let c = nr2char( getchar() )
+        while c != "\<Tab>" && c != "\<Esc>" && c != "\<CR>"
+            exe "normal! a" . c
+            :redraw!
+            " backspace doesn't like being read as a char, so we need its
+            " numeric value
+            let nc = getchar()
+            if nc is# "\<BS>"
+                exe "normal! a\<BS>"
+            endif
+            let c = nr2char( nc )
+        endwhile
     exe "normal! \<Esc>jI\<Tab>"
 endfunction
 
