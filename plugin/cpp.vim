@@ -112,15 +112,17 @@ function s:CompleteFor()
         while c != "\<Tab>" && c != "\<Esc>"
             exe "normal! a" . c
             :redraw!
-            let c = nr2char( getchar() )
-            " TODO FIX ME TO USE BACKSPACE!!!
-            if c == "\b"
+            let nc = getchar()
+            if nc is# "\<BS>"
                 echo "Yay!"
-                :normal! a<BS>
+                exe "normal! a\<BS>"
             endif
+            let c = nr2char( nc )
+            " TODO FIX ME TO USE BACKSPACE!!!
+            " exe "normal! a\<BS>"
         endwhile
 
-        if c == "\<Esc>"
+        if c ==  "\<Esc>"
             break
         endif
     endfor
