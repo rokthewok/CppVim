@@ -2,12 +2,6 @@
 " John Ruffer <jqruffer@gmail.com>
 " GPLv3 License
 
-" Check for a C/C++ file extension
-echo &ft
-if( &ft != "cpp" && &ft != "c" && &ft != "h" )
-    finish
-endif
-
 " give the user a chance to override this plugin
 " set a global variable if it does not yet exist
 if exists( "g:loadedCpp" )
@@ -80,11 +74,17 @@ if !hasmapto( '<Plug>CppFor' )
 endif
 noremap <unique> <script> <Plug>CppFor :call <SID>CompleteFor()<CR>
 
-" Insert for loop
+" Insert while loop
 if !hasmapto( '<Plug>CppWhile' )
     map <unique> <Leader>wh <Plug>CppWhile
 endif
 noremap <unique> <script> <Plug>CppWhile :call <SID>CompleteWhile()<CR>
+
+" Insert namespace
+if !hasmapto( '<Plug>CppNamespace' )
+    map <unique> <Leader>ns <Plug>CppNamespace
+endif
+noremap <unique> <script> <Plug>CppNamespace Snamespace  {<Esc>hi
 
 " ====== VISUAL MODE commands ====== "
 " comment block of text
