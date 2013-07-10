@@ -44,6 +44,12 @@ set cpo&vim
 " <unique> will cause an error to raise if the mapping already exists
 
 " ====== NORMAL MODE commands ====== "
+" Basic camelCase movement. Currently does not skip consecutive capital letters
+" backward
+nnoremap b :call search('\<\<Bar>\u', 'bW')<CR>
+" forward
+nnoremap w :call search('\<\<Bar>\u', 'W')<CR>
+
 " Insert basic class header skeleton
 if !hasmapto( '<Plug>CppClassHeader' )
     map <unique> <Leader>ch <Plug>CppClassHeader
